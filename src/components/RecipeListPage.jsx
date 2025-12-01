@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { useRecipes } from '../hooks/useRecipes.jsx'
+import { useEffect, useMemo, useState } from 'react'
+import { useRecipes } from '../hooks/useRecipes.js'
 import { Link } from "react-router-dom";
 
 import RecipeFilterBar from './RecipeFilterBar.jsx'
@@ -11,6 +11,19 @@ import '../RecipeListPage.css';
 
 function RecipeListPage() {
   const { data, isLoading, isError, error } = useRecipes();
+
+  useEffect(() => {
+    if (data) {
+      console.log('Recipes loaded: ', data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isError) {
+      console.error('Error loading recipes:', error)
+    }
+  }, [isError, error]);
+
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState({
     cuisine: 'all',
@@ -18,9 +31,6 @@ function RecipeListPage() {
     difficulty: 'all',
   });
   const [addRecipe, setAddRecipe] = useState(false);
-  const [recipeBook, setRecipeBook] = useState(() => {
-    const storedRecipes = sessionStorage.setItem();
-  })
 
   const recipes = data?.recipes ?? data ?? [];
 
@@ -59,10 +69,6 @@ function RecipeListPage() {
       ) : (
         <RecipeGrid recipes={filteredRecipes} />
       )}
-      if (addRecipe) {
-        <RecipeForm />
-      }
-
     </div>
   );
 }
