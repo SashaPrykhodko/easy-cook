@@ -1,4 +1,4 @@
-import { IMAGE_PLACEHOLDER } from "../constants";
+import { IMAGE_PLACEHOLDER } from "../../constants";
 
 function RecipeCard({ recipe }) {
   const title = recipe.name || 'Untitled';

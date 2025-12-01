@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useRecipes } from '../hooks/useRecipes.js'
+import { useRecipes } from '../../hooks/useRecipes.js'
 import { Link } from "react-router-dom";
 
-import RecipeFilterBar from './RecipeFilterBar.jsx'
-import RecipeGrid from './RecipeGrid.jsx';
-import RecipeForm from './RecipeForm.jsx';
+import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
+import RecipeGrid from '../recipes/RecipeGrid.jsx';
+import RecipeForm from '../recipes/RecipeForm.jsx';
 
 import '../RecipeListPage.css';
 
