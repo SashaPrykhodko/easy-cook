@@ -6,7 +6,7 @@ import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
 import RecipeGrid from '../recipes/RecipeGrid.jsx';
 import RecipeForm from '../recipes/RecipeForm.jsx';
 
-import '../RecipeListPage.css';
+import './RecipeListPage.css';
 
 
 function RecipeListPage() {
