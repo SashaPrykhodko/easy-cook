@@ -1,7 +1,9 @@
+import { IMAGE_PLACEHOLDER } from "../../constants";
+
 function RecipeCard({ recipe }) {
   const title = recipe.name || 'Untitled';
   const difficulty = recipe.difficulty || 'Unknown';
-  const image = recipe.image || 'public/no-image-available.jpg';
+  const image = recipe.image || IMAGE_PLACEHOLDER;
   const cookingTime = (recipe.cookTimeMinutes && recipe.prepTimeMinutes)
     ? `${recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins` : 'N/A';
 
