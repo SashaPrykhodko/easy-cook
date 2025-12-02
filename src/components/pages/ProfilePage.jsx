@@ -9,11 +9,8 @@ function ProfilePage() {
   });
 
   const notCooked = myRecipes.filter(recipe => {
-    console.log("recipe.status", recipe.status);
     recipe.status === NOT_COOKED_STATUS
   });
-  console.log('notCooked');
-  console.log(notCooked);
 
   return (
     <div>

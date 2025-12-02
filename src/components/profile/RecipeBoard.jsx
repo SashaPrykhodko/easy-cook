@@ -34,21 +34,24 @@ function RecipeBoard() {
   }
 
 
-  return (
-    <div className="recipe-board">
-      <div className="column-container">
-        <DndContext onDragEnd={handleDragEnd}>
-          {COLUMNS.map((column) => (
-            <Column key={column.id}
-              column={column}
-              recipes={recipes.filter((recipe) => recipe.status === column.id
-              )}
-            />
-          ))}
-        </DndContext>
-      </div>
-    </div>
-  )
+    const getRecipesForColumn = (columnId) => {
+        return recipes.filter((recipe) => recipe.status === columnId);
+    };
+
+    return (
+        <div className="recipe-board">
+            <div className="column-container">
+                <DndContext onDragEnd={handleDragEnd}>
+                    {COLUMNS.map((column) => (
+                        <Column key={column.id}
+                                column={column}
+                                recipes={getRecipesForColumn(column.id)}
+                        />
+                    ))}
+                </DndContext>
+            </div>
+        </div>
+    )
 }
 
 export default RecipeBoard
