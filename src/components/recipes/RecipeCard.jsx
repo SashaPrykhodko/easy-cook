@@ -13,7 +13,7 @@ function RecipeCard({ recipe }) {
     console.log(`Added ${recipeId} to Recipe Book!`);
     const stored = sessionStorage.getItem('favorites');
     const recipeBook = stored ? JSON.parse(stored) : [];
-    const newRecipe = { ...recipe, status: 'NOT_COOKED' };
+    const newRecipe = { ...recipe, status: 'NOT COOKED YET' };
     const updated = [...recipeBook, newRecipe];
 
     sessionStorage.setItem('favorites', JSON.stringify(updated));

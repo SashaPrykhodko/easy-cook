@@ -138,7 +138,14 @@ const MOCK_RECIPES = [
 ];
 
 function RecipeBoard() {
-  const [recipes, setRecipes] = useState(MOCK_RECIPES);
+  // const [recipes, setRecipes] = useState(MOCK_RECIPES);
+
+  const [recipes, setRecipes] = useState(() => {
+    return JSON.parse(sessionStorage.getItem('favorites')) || [];
+  });
+
+  console.log("recipes");
+  console.log(recipes);
 
   const handleDragEnd = event => {
     const { active, over } = event;
