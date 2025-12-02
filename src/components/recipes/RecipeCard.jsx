@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { IMAGE_PLACEHOLDER } from "../../constants";
 
 function RecipeCard({ recipe }) {
