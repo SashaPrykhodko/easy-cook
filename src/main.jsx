@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <ProfilePage />
-  }
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
