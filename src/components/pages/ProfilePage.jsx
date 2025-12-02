@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RecipeBoard from "../profile/RecipeBoard";
 
 function ProfilePage() {
   const NOT_COOKED_STATUS = 'NOT_COOKED';
@@ -20,8 +21,9 @@ function ProfilePage() {
           <li key={recipe.id}> {recipe.name}</li>
         ))}
       </ul>
+      <RecipeBoard />
     </div>
-  )
+  );
 }
 
 export default ProfilePage
