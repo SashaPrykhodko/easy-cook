@@ -6,10 +6,12 @@ function RecipeFilterBar({ search, onSearchChange, filter, onFilterChange, onAdd
       [name]: value,
     });
   }
-  const handleAddNewRecipe = () => {
-    console.log('Add recipe clicked');
-    onAddRecipe();
-  }
+
+  // DOESN'T EXIST YET: 'Add new recipe'
+  // const handleAddNewRecipe = () => {
+  //   console.log('Add recipe clicked');
+  //   onAddRecipe();
+  // }
 
   return (
     <div className="recipe-filter-bar">
@@ -42,7 +44,8 @@ function RecipeFilterBar({ search, onSearchChange, filter, onFilterChange, onAdd
         <option value="hard">Hard</option>
       </select>
 
-      <button onClick={handleAddNewRecipe}>Add new recipe</button>
+         {/*DOESN'T EXIST YET: 'Add new recipe'*/}
+      {/*<button onClick={handleAddNewRecipe}>Add new recipe</button>*/}
     </div>
   );
 }
