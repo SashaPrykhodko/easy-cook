@@ -12,10 +12,11 @@ function RecipeCard({recipe}) {
         ? `${recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins` : 'N/A';
 
     const handleAddRecipe = (recipe) => {
-        if (storedRecipes.some(r => r.id === recipeId)) return;
-
-        const newRecipe = {...recipe, status: 'NOT COOKED YET'};
-        setStoredRecipes([...storedRecipes, newRecipe]);
+        setStoredRecipes(currentRecipes => {
+            if (currentRecipes.some(r => r.id === recipeId)) return currentRecipes;
+            const newRecipe = {...recipe, status: 'NOT COOKED YET'};
+            return [...currentRecipes, newRecipe];
+        });
     }
 
     return (

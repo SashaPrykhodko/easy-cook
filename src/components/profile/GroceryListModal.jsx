@@ -1,15 +1,15 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@mui/material";
 import {forwardRef, useState} from "react";
+import {useSessionStorage} from "../../hooks/useSessionStorage.js";
 
-function GroceryListModal({isOpen, onClose, recipe, storedRecipes, setStoredRecipes}) {
+function GroceryListModal({isOpen, onClose, recipe}) {
+    const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
     const [products, setProducts] = useState([
         {id: generateUniqueId(), name: ''}
     ]);
 
     const handleAddToGroceryList = () => {
-        // console.log('products', products);
         const validProducts = products.filter(product => product.name.trim() !== '');
-        // console.log('valid products', validProducts);
         const newProduct = {id: generateUniqueId(), name: ''};
         setProducts([...validProducts, newProduct]);
     };
@@ -26,17 +26,15 @@ function GroceryListModal({isOpen, onClose, recipe, storedRecipes, setStoredReci
         if (validProducts.length === 0) return;
 
         saveRecipeProducts(recipe.id, validProducts);
-        // onSave?.();
         onClose();
     }
 
     function saveRecipeProducts(recipeId, products) {
-        const updatedRecipes = storedRecipes.map(recipe =>
-            recipe.id === recipeId
-                ? { ...recipe, products }
-                : recipe
-        );
-        setStoredRecipes(updatedRecipes);
+        setStoredRecipes(currentRecipes => currentRecipes.map(r => (
+            r.id = recipeId
+                ? {...r, products}
+                : r
+        )));
     }
 
     return (

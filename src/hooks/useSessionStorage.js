@@ -1,15 +1,37 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 export function useSessionStorage(key, initialValue) {
     const [stored, setStored] = useState(() => {
-        const item = sessionStorage.getItem(key);
-        return item ? JSON.parse(item) : initialValue;
+        try {
+            const item = sessionStorage.getItem(key);
+            if (item === null || item === "undefined") {
+                return initialValue;
+            }
+            return JSON.parse(item);
+        } catch (error) {
+            console.error('Error parsing sessionStorage:', error);
+            return initialValue;
+        }
     });
 
-    const setValue = (value) => {
-        sessionStorage.setItem(key, JSON.stringify(value));
-        setStored(value);
-    }
+    const setValue = useCallback((value) => {
+        const currentValue = (() => {
+            try {
+                const item = sessionStorage.getItem(key);
+                if (item === null || item === "undefined") {
+                    return initialValue;
+                }
+                return JSON.parse(item);
+            } catch {
+                return initialValue;
+            }
+        })();
+
+        const valueToStore = value instanceof Function ? value(currentValue) : value;
+
+        sessionStorage.setItem(key, JSON.stringify(valueToStore));
+        setStored(valueToStore);
+    }, [key, initialValue]);
 
     return [stored, setValue]
 }

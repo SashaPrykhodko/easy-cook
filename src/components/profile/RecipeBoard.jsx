@@ -14,12 +14,6 @@ function RecipeBoard() {
 
     const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
 
-    // const refreshRecipes = () => {
-    //     console.log('Refreshing storedRecipes');
-    //     setStoredRecipes(JSON.parse(sessionStorage.getItem('favorites')) || []);
-    //     console.log(storedRecipes);
-    // }
-
     const handleDragEnd = event => {
         const {active, over} = event;
 
@@ -28,7 +22,7 @@ function RecipeBoard() {
         const recipeId = active.id;
         const newStatus = over.id;
 
-        setStoredRecipes(() => storedRecipes.map((recipe) => (
+        setStoredRecipes((currentRecipes) => currentRecipes.map((recipe) => (
             recipe.id === recipeId
                 ? {
                     ...recipe,
@@ -37,7 +31,6 @@ function RecipeBoard() {
                 : recipe
         )))
     }
-
 
     const getRecipesForColumn = (columnId) => {
         return storedRecipes.filter((recipe) => recipe.status === columnId);
@@ -51,8 +44,6 @@ function RecipeBoard() {
                         <Column key={column.id}
                                 column={column}
                                 recipes={getRecipesForColumn(column.id)}
-                                storedRecipes={storedRecipes}
-                                setStoredRecipes={setStoredRecipes}
                         />
                     ))}
                 </DndContext>
