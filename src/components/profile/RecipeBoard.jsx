@@ -1,7 +1,7 @@
 import Column from "./Column"
 import "./index.css";
 import {DndContext} from "@dnd-kit/core";
-import useSessionStorage from "../../hooks/useSessionStorage.js";
+import {useSessionStorage} from "../../hooks/useSessionStorage.js";
 
 const COLUMNS = [
     {id: "NOT COOKED YET", title: "Not Cooked Yet"},

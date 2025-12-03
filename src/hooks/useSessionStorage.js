@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export default function useSessionStorage(key, initialValue) {
+export function useSessionStorage(key, initialValue) {
     const [stored, setStored] = useState(() => {
         const item = sessionStorage.getItem(key);
         return item ? JSON.parse(item) : initialValue;
