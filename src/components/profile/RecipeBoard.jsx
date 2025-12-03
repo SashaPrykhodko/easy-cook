@@ -15,6 +15,12 @@ function RecipeBoard() {
     return JSON.parse(sessionStorage.getItem('favorites')) || [];
   });
 
+  const refreshRecipes = () => {
+      console.log('Refreshing recipes');
+      setRecipes(JSON.parse(sessionStorage.getItem('favorites')) || []);
+      console.log(recipes);
+  }
+
   const handleDragEnd = event => {
     const { active, over } = event;
 
@@ -46,6 +52,7 @@ function RecipeBoard() {
                         <Column key={column.id}
                                 column={column}
                                 recipes={getRecipesForColumn(column.id)}
+                                onRecipesChange={refreshRecipes}
                         />
                     ))}
                 </DndContext>

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
 import RecipeGrid from '../recipes/RecipeGrid.jsx';
-import RecipeForm from '../recipes/RecipeForm.jsx';
 
 import './RecipeListPage.css';
 
@@ -42,7 +41,7 @@ function RecipeListPage() {
     setFilter(newFilter);
   };
 
-  const handleAddRecipe = (e) => {
+  const handleAddRecipe = () => {
     setAddRecipe(!addRecipe);
   }
 
@@ -105,7 +104,7 @@ function textFilter(recipes, searchCriteria) {
 function selectFilter(recipes, filterConfig) {
   return recipes.filter(recipe => {
     return filterConfig.every(config => {
-      const { field, recipeField, value, isArray } = config;
+      const {recipeField, value, isArray } = config;
 
       if (value === 'all') return true;
 

@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import "./index.css";
 import RecipeTaskCard from "./RecipeTaskCard";
 
-function Column({column, recipes}) {
+function Column({column, recipes, onRecipesChange}) {
     const {setNodeRef} = useDroppable({id: column.id});
     return (
         <div className="column">
@@ -13,7 +13,9 @@ function Column({column, recipes}) {
                 <Grid container spacing={2}>
                     {recipes.map((recipe) => (
                         <Grid key={recipe.id}>
-                            <RecipeTaskCard recipe={recipe}/>
+                            <RecipeTaskCard
+                                recipe={recipe}
+                                onRecipesChange={onRecipesChange}/>
                         </Grid>
                     ))}
                 </Grid>
