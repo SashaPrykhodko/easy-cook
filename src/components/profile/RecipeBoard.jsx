@@ -15,6 +15,12 @@ function RecipeBoard() {
     return JSON.parse(sessionStorage.getItem('favorites')) || [];
   });
 
+  const refreshRecipes = () => {
+      console.log('Refreshing recipes');
+      setRecipes(JSON.parse(sessionStorage.getItem('favorites')) || []);
+      console.log(recipes);
+  }
+
   const handleDragEnd = event => {
     const { active, over } = event;
 
@@ -34,21 +40,25 @@ function RecipeBoard() {
   }
 
 
-  return (
-    <div className="recipe-board">
-      <div className="column-container">
-        <DndContext onDragEnd={handleDragEnd}>
-          {COLUMNS.map((column) => (
-            <Column key={column.id}
-              column={column}
-              recipes={recipes.filter((recipe) => recipe.status === column.id
-              )}
-            />
-          ))}
-        </DndContext>
-      </div>
-    </div>
-  )
+    const getRecipesForColumn = (columnId) => {
+        return recipes.filter((recipe) => recipe.status === columnId);
+    };
+
+    return (
+        <div className="recipe-board">
+            <div className="column-container">
+                <DndContext onDragEnd={handleDragEnd}>
+                    {COLUMNS.map((column) => (
+                        <Column key={column.id}
+                                column={column}
+                                recipes={getRecipesForColumn(column.id)}
+                                onRecipesChange={refreshRecipes}
+                        />
+                    ))}
+                </DndContext>
+            </div>
+        </div>
+    )
 }
 
 export default RecipeBoard

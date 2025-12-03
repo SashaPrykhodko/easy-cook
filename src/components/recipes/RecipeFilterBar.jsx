@@ -6,7 +6,7 @@ function RecipeFilterBar({ search, onSearchChange, filter, onFilterChange, onAdd
       [name]: value,
     });
   }
-  const handleAddNewRecipe = (e) => {
+  const handleAddNewRecipe = () => {
     console.log('Add recipe clicked');
     onAddRecipe();
   }

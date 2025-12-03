@@ -8,17 +8,12 @@ function ProfilePage() {
     return JSON.parse(sessionStorage.getItem('favorites')) || [];
   });
 
-  const notCooked = myRecipes.filter(recipe => {
-    console.log("recipe.status", recipe.status);
+  const notCooked = myRecipes.filter(recipe =>
     recipe.status === NOT_COOKED_STATUS
-  });
-  console.log('notCooked');
-  console.log(notCooked);
+  );
 
   return (
     <div>
-      <div>This is profile page</div>
-      <h2>Not cooked ({notCooked.length})</h2>
       <ul>
         {notCooked.map(recipe => (
           <li key={recipe.id}> {recipe.name}</li>
