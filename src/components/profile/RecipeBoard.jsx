@@ -1,47 +1,46 @@
-import { useState } from "react";
 import Column from "./Column"
 import "./index.css";
-import { DndContext } from "@dnd-kit/core";
+import {DndContext} from "@dnd-kit/core";
+import useSessionStorage from "../../hooks/useSessionStorage.js";
 
 const COLUMNS = [
-  { id: "NOT COOKED YET", title: "Not Cooked Yet" },
-  { id: "READY TO BE COOKED", title: "Ready To Be Cooked" },
-  { id: "REVIEW", title: "Review" }
+    {id: "NOT COOKED YET", title: "Not Cooked Yet"},
+    {id: "READY TO BE COOKED", title: "Ready To Be Cooked"},
+    {id: "REVIEW", title: "Review"}
 ];
 
 function RecipeBoard() {
 
-  const [recipes, setRecipes] = useState(() => {
-    return JSON.parse(sessionStorage.getItem('favorites')) || [];
-  });
 
-  const refreshRecipes = () => {
-      console.log('Refreshing recipes');
-      setRecipes(JSON.parse(sessionStorage.getItem('favorites')) || []);
-      console.log(recipes);
-  }
+    const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
 
-  const handleDragEnd = event => {
-    const { active, over } = event;
+    // const refreshRecipes = () => {
+    //     console.log('Refreshing storedRecipes');
+    //     setStoredRecipes(JSON.parse(sessionStorage.getItem('favorites')) || []);
+    //     console.log(storedRecipes);
+    // }
 
-    if (!over) return;
+    const handleDragEnd = event => {
+        const {active, over} = event;
 
-    const recipeId = active.id;
-    const newStatus = over.id;
+        if (!over) return;
 
-    setRecipes(() => recipes.map((recipe) => (
-      recipe.id === recipeId
-        ? {
-          ...recipe,
-          status: newStatus,
-        }
-        : recipe
-    )))
-  }
+        const recipeId = active.id;
+        const newStatus = over.id;
+
+        setStoredRecipes(() => storedRecipes.map((recipe) => (
+            recipe.id === recipeId
+                ? {
+                    ...recipe,
+                    status: newStatus,
+                }
+                : recipe
+        )))
+    }
 
 
     const getRecipesForColumn = (columnId) => {
-        return recipes.filter((recipe) => recipe.status === columnId);
+        return storedRecipes.filter((recipe) => recipe.status === columnId);
     };
 
     return (
@@ -52,7 +51,8 @@ function RecipeBoard() {
                         <Column key={column.id}
                                 column={column}
                                 recipes={getRecipesForColumn(column.id)}
-                                onRecipesChange={refreshRecipes}
+                                storedRecipes={storedRecipes}
+                                setStoredRecipes={setStoredRecipes}
                         />
                     ))}
                 </DndContext>

@@ -12,7 +12,7 @@ import {IMAGE_PLACEHOLDER} from "../../constants.js";
 import {useState} from "react";
 import GroceryListModal from "./GroceryListModal.jsx";
 
-function RecipeTaskCard({recipe, onRecipesChange}) {
+function RecipeTaskCard({recipe, storedRecipes, setStoredRecipes}) {
     const {attributes, listeners, setNodeRef, transform, transition}
         = useDraggable({id: recipe.id});
 
@@ -85,7 +85,8 @@ function RecipeTaskCard({recipe, onRecipesChange}) {
                 isOpen={isGroceryModalOpen}
                 onClose={handleGroceryModalClose}
                 recipe={recipe}
-                onSave={onRecipesChange}/>
+                storedRecipes={storedRecipes}
+                setStoredRecipes={setStoredRecipes}/>
         </>);
 }
 

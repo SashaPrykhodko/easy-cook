@@ -1,18 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@mui/material";
 import {forwardRef, useState} from "react";
 
-const Transition = forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props}/>;
-});
-
-const generateUniqueId = () => crypto.randomUUID();
-
-function loadFromSessionStore() {
-    const stored = sessionStorage.getItem('favorites');
-    return stored ? JSON.parse(stored) : [];
-}
-
-function GroceryListModal({isOpen, onClose, recipe, onSave}) {
+function GroceryListModal({isOpen, onClose, recipe, storedRecipes, setStoredRecipes}) {
     const [products, setProducts] = useState([
         {id: generateUniqueId(), name: ''}
     ]);
@@ -36,16 +25,18 @@ function GroceryListModal({isOpen, onClose, recipe, onSave}) {
         const validProducts = products.filter(product => product.name.trim() !== '');
         if (validProducts.length === 0) return;
 
-        const loadedRecipes = loadFromSessionStore();
-        const updatedRecipes = loadedRecipes.map(r =>
-            r.id === recipe.id
-                ? {...r, products: validProducts}
-                : r
-        );
-
-        sessionStorage.setItem('favorites', JSON.stringify(updatedRecipes));
-        onSave?.();
+        saveRecipeProducts(recipe.id, validProducts);
+        // onSave?.();
         onClose();
+    }
+
+    function saveRecipeProducts(recipeId, products) {
+        const updatedRecipes = storedRecipes.map(recipe =>
+            recipe.id === recipeId
+                ? { ...recipe, products }
+                : recipe
+        );
+        setStoredRecipes(updatedRecipes);
     }
 
     return (
@@ -78,5 +69,11 @@ function GroceryListModal({isOpen, onClose, recipe, onSave}) {
         </Dialog>
     );
 }
+
+const Transition = forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props}/>;
+});
+
+const generateUniqueId = () => crypto.randomUUID();
 
 export default GroceryListModal
