@@ -1,8 +1,39 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, IconButton } from '@mui/material';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import "./index.css";
+import {useEffect, useState} from "react";
 
 function AddRecipeModal({isOpen, onClose}) {
+    const [recipe, setRecipe] = useState({
+        name: '',
+        image: '',
+        prepTime: 0,
+        cookTime: 0,
+        servings: 0,
+        calories: 0,
+        difficulty: '',
+        cuisine: '',
+        ingredients: [''],
+        instructions: [''],
+        tags: [''],
+        mealType: ['']
+    });
+
+    const handleOnChange = (e) => {
+        const {name, value, type} = e.target;
+        setRecipe(prev => ({
+            ...prev,
+            [name]: type === 'number'
+                ? Number(value)
+                : value
+        }));
+    }
+
+    useEffect(() => {
+        console.log('Recipe updated:', recipe);
+    }, [recipe]);
+
+
     return (
         <Dialog
             className="add-recipe-dialog"
@@ -14,7 +45,7 @@ function AddRecipeModal({isOpen, onClose}) {
             <IconButton
                 className="close-button"
                 onClick={onClose}>
-                <CloseIcon />
+                <CloseIcon/>
             </IconButton>
 
             <DialogTitle>Add New Recipe</DialogTitle>
@@ -25,6 +56,9 @@ function AddRecipeModal({isOpen, onClose}) {
                     <TextField
                         fullWidth
                         placeholder="Enter recipe name"
+                        value={recipe.name}
+                        name="name"
+                        onChange={handleOnChange}
                     />
                 </div>
 
@@ -33,6 +67,9 @@ function AddRecipeModal({isOpen, onClose}) {
                     <TextField
                         fullWidth
                         placeholder="https://example.com/image.jpg"
+                        value={recipe.image}
+                        name="image"
+                        onChange={handleOnChange}
                     />
                 </div>
 
@@ -42,6 +79,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <TextField
                             type="number"
                             placeholder="0"
+                            value={recipe.prepTime}
+                            name="prepTime"
+                            onChange={handleOnChange}
                         />
                     </div>
                     <div className="form-field">
@@ -49,6 +89,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <TextField
                             type="number"
                             placeholder="0"
+                            value={recipe.cookTime}
+                            name="cookTime"
+                            onChange={handleOnChange}
                         />
                     </div>
                 </div>
@@ -59,6 +102,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <TextField
                             type="number"
                             placeholder="1"
+                            value={recipe.servings}
+                            name="servings"
+                            onChange={handleOnChange}
                         />
                     </div>
                     <div className="form-field">
@@ -66,6 +112,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <TextField
                             type="number"
                             placeholder="0"
+                            value={recipe.calories}
+                            name="calories"
+                            onChange={handleOnChange}
                         />
                     </div>
                 </div>
@@ -75,8 +124,10 @@ function AddRecipeModal({isOpen, onClose}) {
                         <label>Difficulty</label>
                         <TextField
                             select
-                            SelectProps={{ native: true }}
-                            defaultValue="Easy">
+                            SelectProps={{native: true}}
+                            value={recipe.difficulty}
+                            name="difficulty"
+                            onChange={handleOnChange}>
                             <option value="Easy">Easy</option>
                             <option value="Medium">Medium</option>
                             <option value="Hard">Hard</option>
@@ -86,6 +137,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <label>Cuisine</label>
                         <TextField
                             placeholder="e.g., Italian, Mexican, Chinese"
+                            value={recipe.cuisine}
+                            name="cuisine"
+                            onChange={handleOnChange}
                         />
                     </div>
                 </div>
@@ -95,6 +149,9 @@ function AddRecipeModal({isOpen, onClose}) {
                     <TextField
                         fullWidth
                         placeholder="Enter ingredient"
+                        value={recipe.ingredients}
+                        name="ingredients"
+                        onChange={handleOnChange}
                     />
                     <button className="add-button">
                         + Add Ingredient
@@ -108,6 +165,9 @@ function AddRecipeModal({isOpen, onClose}) {
                         <TextField
                             fullWidth
                             placeholder="Enter instruction step"
+                            value={recipe.instructions}
+                            name="instructions"
+                            onChange={handleOnChange}
                         />
                     </div>
                     <button className="add-button">
@@ -120,6 +180,9 @@ function AddRecipeModal({isOpen, onClose}) {
                     <TextField
                         fullWidth
                         placeholder="Enter tag"
+                        value={recipe.tags}
+                        name="tags"
+                        onChange={handleOnChange}
                     />
                     <button className="add-button">
                         + Add Tag
@@ -131,6 +194,9 @@ function AddRecipeModal({isOpen, onClose}) {
                     <TextField
                         fullWidth
                         placeholder="e.g., Breakfast, Lunch, Dinner"
+                        value={recipe.mealType}
+                        name="mealType"
+                        onChange={handleOnChange}
                     />
                     <button className="add-button">
                         + Add Meal Type
