@@ -1,6 +1,6 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@mui/material";
 import {forwardRef, useState} from "react";
-import {useSessionStorage} from "../../hooks/useSessionStorage.js";
+import {useSessionStorage} from "../../hook/useSessionStorage.js";
 
 function GroceryListModal({isOpen, onClose, recipe}) {
     const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);

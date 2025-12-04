@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useRecipes } from '../../hooks/useRecipes.js'
+import { useRecipes } from '../../hook/useRecipes.js'
 import { Link } from "react-router-dom";
 
 import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
