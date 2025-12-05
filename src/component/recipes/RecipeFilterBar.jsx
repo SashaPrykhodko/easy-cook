@@ -1,5 +1,5 @@
 import {useState} from "react";
-import AddRecipeModal from "./AddRecipeModal.jsx";
+import AddRecipeModal from "./form/AddRecipeModal.jsx";
 
 function RecipeFilterBar({search, onSearchChange, filter, onFilterChange, onAddRecipe}) {
     const [isAddRecipe, setIsAddRecipe] = useState(false);
