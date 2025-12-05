@@ -46,16 +46,18 @@ function RecipeTaskCard({recipe}) {
     return (
         <>
             <div
-                className="recipe-task"
+                className="recipe-task-wrapper"
                 ref={setNodeRef}
                 {...listeners}
                 {...attributes}
                 style={style}
             >
-                <div className="recipe-card">
+                <div className="recipe-task-card">
                     <CardHeader
+                        className="recipe-card-header"
                         action={<>
                             <IconButton
+                                className="recipe-menu-button"
                                 aria-label="settings"
                                 onClick={handleActionClick}
                                 onPointerDown={(e) => e.stopPropagation()}
@@ -63,6 +65,7 @@ function RecipeTaskCard({recipe}) {
                                 <MoreVertIcon/>
                             </IconButton>
                             <Menu
+                                className="recipe-card-menu"
                                 anchorEl={anchorEl}
                                 open={open}
                                 onClose={handleClose}
@@ -76,7 +79,7 @@ function RecipeTaskCard({recipe}) {
                     />
                     <CardMedia
                         component="img"
-                        height="194"
+                        className="recipe-card-image"
                         image={image}
                     />
                 </div>

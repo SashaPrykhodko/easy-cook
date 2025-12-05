@@ -1,53 +1,64 @@
-function RecipeFilterBar({ search, onSearchChange, filter, onFilterChange, onAddRecipe }) {
-  const handleSelectChange = (e) => {
-    const { name, value } = e.target;
-    onFilterChange({
-      ...filter,
-      [name]: value,
-    });
-  }
+import {useState} from "react";
+import AddRecipeModal from "./form/AddRecipeModal.jsx";
 
-  // DOESN'T EXIST YET: 'Add new recipe'
-  // const handleAddNewRecipe = () => {
-  //   console.log('Add recipe clicked');
-  //   onAddRecipe();
-  // }
+function RecipeFilterBar({search, onSearchChange, filter, onFilterChange, onAddRecipe}) {
+    const [isAddRecipe, setIsAddRecipe] = useState(false);
+    // const [anchorEl, setAnchorEl] = useState(null);
 
-  return (
-    <div className="recipe-filter-bar">
-      <input value={search}
-        onChange={onSearchChange}
-        type="text"
-        placeholder="Search recipes..." />
+    const handleSelectChange = (e) => {
+        const {name, value} = e.target;
+        onFilterChange({
+            ...filter,
+            [name]: value,
+        });
+    }
 
-      <label htmlFor="cuisine">Cuisine:</label>
-      <select id="cuisine" name="cuisine" value={filter.cuisine} onChange={handleSelectChange}>
-        <option value="all">All</option>
-        <option value="italian">Italian</option>
-        <option value="mexican">Mexican</option>
-        <option value="chinese">Chinese</option>
-      </select>
+    const handleOpenAddNewRecipe = () => {
+        setIsAddRecipe(true);
+    }
 
-      <label htmlFor="mealType">Meal Type:</label>
-      <select id="mealType" name="mealType" value={filter.mealType} onChange={handleSelectChange}>
-        <option value="all">All</option>
-        <option value="breakfast">Breakfast</option>
-        <option value="lunch">Lunch</option>
-        <option value="dinner">Dinner</option>
-      </select>
+    const handleCloseAddNewRecipe = () => {
+        setIsAddRecipe(false);
+    }
 
-      <label htmlFor="difficulty">Difficulty:</label>
-      <select id="difficulty" name="difficulty" value={filter.difficulty} onChange={handleSelectChange}>
-        <option value="all">All</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
+    return (
+        <>
+            <div className="recipe-filter-bar">
+                <input value={search}
+                       onChange={onSearchChange}
+                       type="text"
+                       placeholder="Search recipes..."/>
 
-         {/*DOESN'T EXIST YET: 'Add new recipe'*/}
-      {/*<button onClick={handleAddNewRecipe}>Add new recipe</button>*/}
-    </div>
-  );
+                <label htmlFor="cuisine">Cuisine:</label>
+                <select id="cuisine" name="cuisine" value={filter.cuisine} onChange={handleSelectChange}>
+                    <option value="all">All</option>
+                    <option value="italian">Italian</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="chinese">Chinese</option>
+                </select>
+
+                <label htmlFor="mealType">Meal Type:</label>
+                <select id="mealType" name="mealType" value={filter.mealType} onChange={handleSelectChange}>
+                    <option value="all">All</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
+
+                <label htmlFor="difficulty">Difficulty:</label>
+                <select id="difficulty" name="difficulty" value={filter.difficulty} onChange={handleSelectChange}>
+                    <option value="all">All</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+
+                <button onClick={handleOpenAddNewRecipe}>Add new recipe</button>
+                <AddRecipeModal
+                    isOpen={isAddRecipe}
+                    onClose={handleCloseAddNewRecipe}/>
+            </div>
+        </>);
 }
 
 export default RecipeFilterBar

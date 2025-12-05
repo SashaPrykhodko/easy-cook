@@ -1,6 +1,7 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextField, IconButton} from "@mui/material";
 import {forwardRef, useState} from "react";
 import {useSessionStorage} from "../../hook/useSessionStorage.js";
+import CloseIcon from '@mui/icons-material/Close';
 
 function GroceryListModal({isOpen, onClose, recipe}) {
     const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
@@ -21,7 +22,6 @@ function GroceryListModal({isOpen, onClose, recipe}) {
     }
 
     const handleSave = () => {
-
         const validProducts = products.filter(product => product.name.trim() !== '');
         if (validProducts.length === 0) return;
 
@@ -31,7 +31,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
 
     function saveRecipeProducts(recipeId, products) {
         setStoredRecipes(currentRecipes => currentRecipes.map(r => (
-            r.id = recipeId
+            r.id === recipeId
                 ? {...r, products}
                 : r
         )));
@@ -39,28 +39,52 @@ function GroceryListModal({isOpen, onClose, recipe}) {
 
     return (
         <Dialog
+            className="grocery-list-dialog"
             open={isOpen}
             onClose={onClose}
             slots={{
                 transition: Transition,
             }}
+            maxWidth="sm"
+            fullWidth
             disableRestoreFocus>
-            <DialogTitle>Add products</DialogTitle>
-            <DialogContent>
-                {products.map(({id, name}) => (
-                    <div key={id}>
-                        {/*<input type="checkbox" checked={checked}/>*/}
-                        <input type="text" placeholder="Product name"
-                               value={name}
-                               onChange={(e) => handleProductChange(id, e.target.value)}/>
-                    </div>
-                ))}
 
+            <IconButton
+                className="close-button"
+                onClick={onClose}>
+                <CloseIcon />
+            </IconButton>
+
+            <DialogTitle>Grocery list</DialogTitle>
+
+            <DialogContent>
+                <h3 className="recipe-title">{recipe?.name}</h3>
+
+                <div className="products-list">
+                    {products.map(({id, name}) => (
+                        <div key={id} className="product-item">
+                            <TextField
+                                fullWidth
+                                placeholder="add your first product here"
+                                value={name}
+                                onChange={(e) => handleProductChange(id, e.target.value)}
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                <button
+                    className="add-button"
+                    onClick={handleAddToGroceryList}>
+                    + Add item
+                </button>
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleAddToGroceryList}>Add to grocery list</Button>
-                <Button onClick={onClose}>Cancel</Button>
-                <Button type="submit" form="subscription-form" onClick={handleSave}>
+
+            <DialogActions className="dialog-actions">
+                <Button onClick={onClose} variant="outlined">
+                    Cancel
+                </Button>
+                <Button onClick={handleSave} variant="contained">
                     Save
                 </Button>
             </DialogActions>
