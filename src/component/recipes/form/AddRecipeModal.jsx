@@ -6,27 +6,37 @@ import RecipeBasicInfoSection from "./RecipeBasicInfoSection.jsx";
 import RecipeDetailsSection from "./RecipeDetailsSection.jsx";
 import RecipeContentSection from "./RecipeContentSection.jsx";
 import RecipeCategorizationSection from "./RecipeCategorizationSection.jsx";
+import {useMutation} from "@tanstack/react-query";
+import {submitRecipe} from "../../../api/recipes.js";
+
+const initialState = {
+    name: '',
+    image: '',
+    prepTime: 0,
+    cookTime: 0,
+    servings: 0,
+    calories: 0,
+    difficulty: '',
+    cuisine: '',
+    ingredients: [''],
+    instructions: [''],
+    tags: [''],
+    mealType: ['']
+};
 
 function AddRecipeModal({isOpen, onClose}) {
-    let initialState = {
-        name: '',
-        image: '',
-        prepTime: 0,
-        cookTime: 0,
-        servings: 0,
-        calories: 0,
-        difficulty: '',
-        cuisine: '',
-        ingredients: [''],
-        instructions: [''],
-        tags: [''],
-        mealType: ['']
-    };
     const [recipe, setRecipe] = useState(initialState);
 
     useEffect(() => {
         console.log('Recipe updated:', recipe);
     }, [recipe]);
+
+    const {mutateAsync: addRecipeMutation} = useMutation({
+        mutationFn: submitRecipe,
+        onSuccess: (data) => {
+            console.log("Successfully added", data);
+        }
+    })
 
     const handleOnChange = (e) => {
         const {name, value, type} = e.target;
@@ -37,6 +47,15 @@ function AddRecipeModal({isOpen, onClose}) {
                 : value
         }));
     }
+
+    const handleSubmit = async () => {
+        try {
+            await addRecipeMutation(recipe);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <Dialog
@@ -65,7 +84,9 @@ function AddRecipeModal({isOpen, onClose}) {
                 <Button onClick={onClose} variant="outlined">
                     Cancel
                 </Button>
-                <Button variant="contained">
+                <Button
+                    variant="contained"
+                    onClick={handleSubmit}>
                     Save Recipe
                 </Button>
             </DialogActions>
