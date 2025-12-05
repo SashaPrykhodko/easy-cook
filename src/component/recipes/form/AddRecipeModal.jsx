@@ -6,8 +6,7 @@ import RecipeBasicInfoSection from "./RecipeBasicInfoSection.jsx";
 import RecipeDetailsSection from "./RecipeDetailsSection.jsx";
 import RecipeContentSection from "./RecipeContentSection.jsx";
 import RecipeCategorizationSection from "./RecipeCategorizationSection.jsx";
-import {useMutation} from "@tanstack/react-query";
-import {submitRecipe} from "../../../api/recipes.js";
+import {useAddRecipe} from "../../../hook/useRecipes.js";
 
 const initialState = {
     name: '',
@@ -31,12 +30,7 @@ function AddRecipeModal({isOpen, onClose}) {
         console.log('Recipe updated:', recipe);
     }, [recipe]);
 
-    const {mutateAsync: addRecipeMutation} = useMutation({
-        mutationFn: submitRecipe,
-        onSuccess: (data) => {
-            console.log("Successfully added", data);
-        }
-    })
+    const {mutateAsync: addRecipeMutation} = useAddRecipe();
 
     const handleOnChange = (e) => {
         const {name, value, type} = e.target;
