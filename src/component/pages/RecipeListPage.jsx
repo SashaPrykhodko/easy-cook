@@ -9,13 +9,7 @@ import './index.css';
 
 
 function RecipeListPage() {
-    const { data, isLoading, isError, error } = useRecipes();
-
-    useEffect(() => {
-        if (data) {
-            console.log('Recipes loaded: ', data);
-        }
-    }, [data]);
+    const { recipes, isLoading, isError, error } = useRecipes();
 
     useEffect(() => {
         if (isError) {
@@ -30,8 +24,6 @@ function RecipeListPage() {
         difficulty: 'all',
     });
     const [addRecipe, setAddRecipe] = useState(false);
-
-    const recipes = data?.recipes ?? data ?? [];
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);

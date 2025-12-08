@@ -1,18 +1,39 @@
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {fetchRecipes, submitRecipe} from '../api/recipes.js'
+import {useSessionStorage} from "./useSessionStorage.js";
+import {useEffect} from 'react';
 
 export function useRecipes() {
-  return useQuery({
-    queryKey: ['recipes'],
-    queryFn: fetchRecipes,
-  })
+    const [allRecipes, setAllRecipes] = useSessionStorage('allRecipes', []);
+
+    const query = useQuery({
+        queryKey: ['recipes'],
+        queryFn: fetchRecipes,
+    });
+
+    useEffect(() => {
+        if (query.data && allRecipes.length === 0) {
+            setAllRecipes(query.data.recipes);
+            console.log('Recipes loaded to sessionStorage: ', query.data);
+        }
+    }, [query.data, setAllRecipes, allRecipes.length]);
+
+    return {
+        ...query,
+        recipes: allRecipes,
+    };
 }
 
 export function useAddRecipe() {
+    const [allRecipes, setAllRecipes] = useSessionStorage('allRecipes', []);
     return useMutation({
         mutationFn: submitRecipe,
         onSuccess: (data) => {
-            // console.log("Successfully added", data);
+            setAllRecipes(prev => {
+                const maxId = prev.length > 0 ? Math.max(...prev.map(recipe => recipe.id)) + 1: 0;
+                const recipeWithNewId = {...data, id: maxId};
+                return [...prev, recipeWithNewId];
+            })
         }
     })
 }
