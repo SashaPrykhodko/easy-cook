@@ -1,13 +1,19 @@
 import {TextField} from "@mui/material";
+import {
+    NEW_RECIPE_IMG_INPUT_PLACEHOLDER,
+    NEW_RECIPE_IMG_LABEL,
+    NEW_RECIPE_NAME_INPUT_PLACEHOLDER,
+    NEW_RECIPE_NAME_LABEL
+} from "../../../constants.js";
 
 function RecipeBasicInfoSection({recipe, handleOnChange}) {
     return (
         <div>
             <div className="form-field">
-                <label>Recipe Name</label>
+                <label>{NEW_RECIPE_NAME_LABEL}</label>
                 <TextField
                     fullWidth
-                    placeholder="Enter recipe name"
+                    placeholder={NEW_RECIPE_NAME_INPUT_PLACEHOLDER}
                     value={recipe.name}
                     name="name"
                     onChange={handleOnChange}
@@ -15,10 +21,10 @@ function RecipeBasicInfoSection({recipe, handleOnChange}) {
             </div>
 
             <div className="form-field">
-                <label>Image URL</label>
+                <label>{NEW_RECIPE_IMG_LABEL}</label>
                 <TextField
                     fullWidth
-                    placeholder="https://example.com/image.jpg"
+                    placeholder={NEW_RECIPE_IMG_INPUT_PLACEHOLDER}
                     value={recipe.image}
                     name="image"
                     onChange={handleOnChange}

@@ -2,17 +2,10 @@ import Column from "./Column"
 import "./index.css";
 import {DndContext} from "@dnd-kit/core";
 import {useSessionStorage} from "../../hook/useSessionStorage.js";
-
-const COLUMNS = [
-    {id: "NOT COOKED YET", title: "Not Cooked Yet"},
-    {id: "READY TO BE COOKED", title: "Ready To Be Cooked"},
-    {id: "REVIEW", title: "Review"}
-];
+import {COLUMNS, SESSION_STORE_FAVORITES} from "../../constants.js";
 
 function RecipeBoard() {
-
-
-    const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
+    const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
 
     const handleDragEnd = event => {
         const {active, over} = event;

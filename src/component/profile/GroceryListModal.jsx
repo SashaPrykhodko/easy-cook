@@ -2,9 +2,15 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextFi
 import {forwardRef, useState} from "react";
 import {useSessionStorage} from "../../hook/useSessionStorage.js";
 import CloseIcon from '@mui/icons-material/Close';
+import {
+    GROCERY_LIST_ADD_ITEM_BTN,
+    GROCERY_LIST_CANCEL_BTN, GROCERY_LIST_DIALOG_TITLE, GROCERY_LIST_INPUT_PLACEHOLDER,
+    GROCERY_LIST_SAVE_BTN,
+    SESSION_STORE_FAVORITES
+} from "../../constants.js";
 
 function GroceryListModal({isOpen, onClose, recipe}) {
-    const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
+    const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
     const [products, setProducts] = useState([
         {id: generateUniqueId(), name: ''}
     ]);
@@ -55,7 +61,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
                 <CloseIcon />
             </IconButton>
 
-            <DialogTitle>Grocery list</DialogTitle>
+            <DialogTitle>{GROCERY_LIST_DIALOG_TITLE}</DialogTitle>
 
             <DialogContent>
                 <h3 className="recipe-title">{recipe?.name}</h3>
@@ -65,7 +71,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
                         <div key={id} className="product-item">
                             <TextField
                                 fullWidth
-                                placeholder="add your first product here"
+                                placeholder={GROCERY_LIST_INPUT_PLACEHOLDER}
                                 value={name}
                                 onChange={(e) => handleProductChange(id, e.target.value)}
                             />
@@ -76,16 +82,16 @@ function GroceryListModal({isOpen, onClose, recipe}) {
                 <button
                     className="add-button"
                     onClick={handleAddToGroceryList}>
-                    + Add item
+                    {GROCERY_LIST_ADD_ITEM_BTN}
                 </button>
             </DialogContent>
 
             <DialogActions className="dialog-actions">
                 <Button onClick={onClose} variant="outlined">
-                    Cancel
+                    {GROCERY_LIST_CANCEL_BTN}
                 </Button>
                 <Button onClick={handleSave} variant="contained">
-                    Save
+                    {GROCERY_LIST_SAVE_BTN}
                 </Button>
             </DialogActions>
         </Dialog>
