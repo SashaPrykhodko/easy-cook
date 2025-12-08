@@ -56,7 +56,8 @@ function RecipeFilterBar({search, onSearchChange, filter, onFilterChange, onAddR
                 <button onClick={handleOpenAddNewRecipe}>Add new recipe</button>
                 <AddRecipeModal
                     isOpen={isAddRecipe}
-                    onClose={handleCloseAddNewRecipe}/>
+                    onClose={handleCloseAddNewRecipe}
+                    onSubmit={handleCloseAddNewRecipe}/>
             </div>
         </>);
 }

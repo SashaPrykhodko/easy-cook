@@ -14,7 +14,6 @@ const initialState = {
     prepTime: 0,
     cookTime: 0,
     servings: 0,
-    calories: 0,
     difficulty: '',
     cuisine: '',
     ingredients: [''],
@@ -23,7 +22,7 @@ const initialState = {
     mealType: ['']
 };
 
-function AddRecipeModal({isOpen, onClose}) {
+function AddRecipeModal({isOpen, onClose, onSubmit}) {
     const [recipe, setRecipe] = useState(initialState);
 
     useEffect(() => {
@@ -45,6 +44,7 @@ function AddRecipeModal({isOpen, onClose}) {
     const handleSubmit = async () => {
         try {
             await addRecipeMutation(recipe);
+            onSubmit();
         } catch (error) {
             console.log(error);
         }
