@@ -7,6 +7,7 @@ import RecipeContentSection from "./RecipeContentSection.jsx";
 import RecipeCategorizationSection from "./RecipeCategorizationSection.jsx";
 import {useAddRecipe} from "../../../hook/useRecipes.js";
 import "./index.css";
+import {ADD_NEW_RECIPE_BTN, CANCEL_RECIPE_BTN, SAVE_RECIPE_BTN} from "../../../constants.js";
 
 const initialState = {
     name: '',
@@ -65,7 +66,7 @@ function AddRecipeModal({isOpen, onClose, onSubmit}) {
                 <CloseIcon/>
             </IconButton>
 
-            <DialogTitle>Add New Recipe</DialogTitle>
+            <DialogTitle>{ADD_NEW_RECIPE_BTN}</DialogTitle>
 
             <DialogContent>
                 <RecipeBasicInfoSection recipe={recipe} handleOnChange={handleOnChange}/>
@@ -76,12 +77,12 @@ function AddRecipeModal({isOpen, onClose, onSubmit}) {
 
             <DialogActions className="dialog-actions">
                 <Button onClick={onClose} variant="outlined">
-                    Cancel
+                    {CANCEL_RECIPE_BTN}
                 </Button>
                 <Button
                     variant="contained"
                     onClick={handleSubmit}>
-                    Save Recipe
+                    {SAVE_RECIPE_BTN}
                 </Button>
             </DialogActions>
         </Dialog>

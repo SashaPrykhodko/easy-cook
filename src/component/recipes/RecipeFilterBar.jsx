@@ -1,6 +1,7 @@
 import {useState} from "react";
 import AddRecipeModal from "./form/AddRecipeModal.jsx";
 import "./index.css";
+import {CUISINE_OPTIONS, DIFFICULTY_OPTIONS, MEAL_TYPE_OPTIONS, SEARCH_RECIPES_PLACEHOLDER} from "../../constants.js";
 
 function RecipeFilterBar({search, onSearchChange, filter, onFilterChange}) {
     const [isAddRecipe, setIsAddRecipe] = useState(false);
@@ -27,30 +28,27 @@ function RecipeFilterBar({search, onSearchChange, filter, onFilterChange}) {
                 <input value={search}
                        onChange={onSearchChange}
                        type="text"
-                       placeholder="Search recipes..."/>
+                       placeholder={SEARCH_RECIPES_PLACEHOLDER}/>
 
                 <label htmlFor="cuisine">Cuisine:</label>
                 <select id="cuisine" name="cuisine" value={filter.cuisine} onChange={handleSelectChange}>
-                    <option value="all">All</option>
-                    <option value="italian">Italian</option>
-                    <option value="mexican">Mexican</option>
-                    <option value="chinese">Chinese</option>
+                    {CUISINE_OPTIONS.map(({value, label}) => (
+                        <option key={value} value={value}>{label}</option>
+                    ))}
                 </select>
 
                 <label htmlFor="mealType">Meal Type:</label>
                 <select id="mealType" name="mealType" value={filter.mealType} onChange={handleSelectChange}>
-                    <option value="all">All</option>
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="dinner">Dinner</option>
+                    {MEAL_TYPE_OPTIONS.map(({value, label}) => (
+                        <option key={value} value={value}>{label}</option>
+                    ))}
                 </select>
 
                 <label htmlFor="difficulty">Difficulty:</label>
                 <select id="difficulty" name="difficulty" value={filter.difficulty} onChange={handleSelectChange}>
-                    <option value="all">All</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
+                    {DIFFICULTY_OPTIONS.map(({value, label}) => (
+                        <option key={value} value={value}>{label}</option>
+                        ))}
                 </select>
 
                 <button onClick={handleOpenAddNewRecipe}>Add new recipe</button>

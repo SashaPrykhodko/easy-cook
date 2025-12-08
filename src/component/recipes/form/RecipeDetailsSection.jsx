@@ -1,24 +1,31 @@
 import {TextField} from "@mui/material";
+import {
+    NEW_RECIPE_CALORIES_INPUT_PLACEHOLDER,
+    NEW_RECIPE_CALORIES_LABEL,
+    NEW_RECIPE_COOK_TIME_INPUT_PLACEHOLDER, NEW_RECIPE_COOK_TIME_LABEL,
+    NEW_RECIPE_PREP_TIME_INPUT_PLACEHOLDER,
+    NEW_RECIPE_PREP_TIME_LABEL, NEW_RECIPE_SERVING_INPUT_PLACEHOLDER, NEW_RECIPE_SERVING_LABEL
+} from "../../../constants.js";
 
 function RecipeDetailsSection({recipe, handleOnChange}) {
     return (
         <div>
             <div className="form-row">
                 <div className="form-field">
-                    <label>Prep Time (minutes)</label>
+                    <label>{NEW_RECIPE_PREP_TIME_LABEL}</label>
                     <TextField
                         type="number"
-                        placeholder="0"
+                        placeholder={NEW_RECIPE_PREP_TIME_INPUT_PLACEHOLDER}
                         value={recipe.prepTime}
                         name="prepTime"
                         onChange={handleOnChange}
                     />
                 </div>
                 <div className="form-field">
-                    <label>Cook Time (minutes)</label>
+                    <label>{NEW_RECIPE_COOK_TIME_LABEL}</label>
                     <TextField
                         type="number"
-                        placeholder="0"
+                        placeholder={NEW_RECIPE_COOK_TIME_INPUT_PLACEHOLDER}
                         value={recipe.cookTime}
                         name="cookTime"
                         onChange={handleOnChange}
@@ -28,20 +35,20 @@ function RecipeDetailsSection({recipe, handleOnChange}) {
 
             <div className="form-row">
                 <div className="form-field">
-                    <label>Servings</label>
+                    <label>{NEW_RECIPE_SERVING_LABEL}</label>
                     <TextField
                         type="number"
-                        placeholder="1"
+                        placeholder={NEW_RECIPE_SERVING_INPUT_PLACEHOLDER}
                         value={recipe.servings}
                         name="servings"
                         onChange={handleOnChange}
                     />
                 </div>
                 <div className="form-field">
-                    <label>Calories per Serving</label>
+                    <label>{NEW_RECIPE_CALORIES_LABEL}</label>
                     <TextField
                         type="number"
-                        placeholder="0"
+                        placeholder={NEW_RECIPE_CALORIES_INPUT_PLACEHOLDER}
                         value={recipe.calories}
                         name="calories"
                         onChange={handleOnChange}

@@ -1,13 +1,18 @@
 import {TextField} from "@mui/material";
+import {
+    NEW_RECIPE_INGREDIENTS_INPUT_PLACEHOLDER,
+    NEW_RECIPE_INGREDIENTS_LABEL, NEW_RECIPE_INSTRUCTIONS_INPUT_PLACEHOLDER,
+    NEW_RECIPE_INSTRUCTIONS_LABEL
+} from "../../../constants.js";
 
 function RecipeContentSection({ recipe, handleOnChange, addItem }) {
     return (
         <div>
             <div className="form-field">
-                <label>Ingredients</label>
+                <label>{NEW_RECIPE_INGREDIENTS_LABEL}</label>
                 <TextField
                     fullWidth
-                    placeholder="Enter ingredient"
+                    placeholder={NEW_RECIPE_INGREDIENTS_INPUT_PLACEHOLDER}
                     value={recipe.ingredients}
                     name="ingredients"
                     onChange={handleOnChange}
@@ -18,12 +23,12 @@ function RecipeContentSection({ recipe, handleOnChange, addItem }) {
             </div>
 
             <div className="form-field">
-                <label>Instructions</label>
+                <label>{NEW_RECIPE_INSTRUCTIONS_LABEL}</label>
                 <div className="instruction-item">
                     <span className="step-number">1.</span>
                     <TextField
                         fullWidth
-                        placeholder="Enter instruction step"
+                        placeholder={NEW_RECIPE_INSTRUCTIONS_INPUT_PLACEHOLDER}
                         value={recipe.instructions}
                         name="instructions"
                         onChange={handleOnChange}

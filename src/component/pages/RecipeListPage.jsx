@@ -1,15 +1,26 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useRecipes } from '../../hook/useRecipes.js'
-import { Link } from "react-router-dom";
+import {useEffect, useMemo, useState} from 'react'
+import {useRecipes} from '../../hook/useRecipes.js'
+import {Link} from "react-router-dom";
 
 import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
 import RecipeGrid from '../recipes/RecipeGrid.jsx';
 
 import './index.css';
+import {
+    FILTERS_INIT_STATE,
+    LINK_TO_RECIPES,
+    LOADING_ERROR,
+    NO_RECIPES_RESULT,
+    RECIPES_LOADING_DIV,
+    UNKNOWN_ERROR
+} from "../../constants.js";
 
 
 function RecipeListPage() {
-    const { recipes, isLoading, isError, error } = useRecipes();
+    const {recipes, isLoading, isError, error} = useRecipes();
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState(FILTERS_INIT_STATE);
+    const [addRecipe, setAddRecipe] = useState(false);
 
     useEffect(() => {
         if (isError) {
@@ -17,13 +28,10 @@ function RecipeListPage() {
         }
     }, [isError, error]);
 
-    const [search, setSearch] = useState('');
-    const [filter, setFilter] = useState({
-        cuisine: 'all',
-        mealType: 'all',
-        difficulty: 'all',
-    });
-    const [addRecipe, setAddRecipe] = useState(false);
+    const filteredRecipes = useMemo(() =>
+            filterRecipes(recipes, search, filter),
+        [search, recipes, filter]
+    );
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -37,13 +45,8 @@ function RecipeListPage() {
         setAddRecipe(!addRecipe);
     }
 
-    const filteredRecipes = useMemo(() =>
-            filterRecipes(recipes, search, filter),
-        [search, recipes, filter]
-    );
-
-    if (isLoading) return <div>Loading recipes…</div>;
-    if (isError) return <div>Error: {error?.message ?? 'Unknown error'}</div>;
+    if (isLoading) return <div>{RECIPES_LOADING_DIV}</div>;
+    if (isError) return <div>{LOADING_ERROR}{error?.message ?? UNKNOWN_ERROR}</div>;
 
     return (
         <div className="recipe-list-page">
@@ -51,14 +54,14 @@ function RecipeListPage() {
                              onSearchChange={handleSearchChange}
                              filter={filter}
                              onFilterChange={handleFilterChange}
-                             onAddRecipe={handleAddRecipe} />
+                             onAddRecipe={handleAddRecipe}/>
 
-            <Link to="/profile">My recipe book</Link>
+            <Link to="/profile">{LINK_TO_RECIPES}</Link>
 
             {filteredRecipes.length === 0 ? (
-                <div>No recipes found.</div>
+                <div>{NO_RECIPES_RESULT}</div>
             ) : (
-                <RecipeGrid recipes={filteredRecipes} />
+                <RecipeGrid recipes={filteredRecipes}/>
             )}
         </div>
     );
@@ -74,12 +77,12 @@ function filterRecipes(recipes, searchTerm, filter) {
         recipes = textFilter(recipes, searchCriteria);
     }
 
+    const filterConfigs = [
+        {field: 'cuisine', recipeField: 'cuisine', value: filter.cuisine, isArray: false},
+        {field: 'mealType', recipeField: 'mealType', value: filter.mealType, isArray: true},
+        {field: 'difficulty', recipeField: 'difficulty', value: filter.difficulty, isArray: false},
+    ];
     if (filter.cuisine !== 'all' || filter.mealType !== 'all' || filter.difficulty !== 'all') {
-        const filterConfigs = [
-            { field: 'cuisine', recipeField: 'cuisine', value: filter.cuisine, isArray: false },
-            { field: 'mealType', recipeField: 'mealType', value: filter.mealType, isArray: true },
-            { field: 'difficulty', recipeField: 'difficulty', value: filter.difficulty, isArray: false },
-        ];
         recipes = selectFilter(recipes, filterConfigs);
     }
 
@@ -96,7 +99,7 @@ function textFilter(recipes, searchCriteria) {
 function selectFilter(recipes, filterConfig) {
     return recipes.filter(recipe => {
         return filterConfig.every(config => {
-            const {recipeField, value, isArray } = config;
+            const {recipeField, value, isArray} = config;
 
             if (value === 'all') return true;
 

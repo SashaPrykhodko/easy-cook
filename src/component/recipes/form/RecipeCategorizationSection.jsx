@@ -1,33 +1,39 @@
 import {TextField} from "@mui/material";
+import {
+    NEW_RECIPE_MEAL_TYPE_BTN,
+    NEW_RECIPE_MEAL_TYPE_LABEL, NEW_RECIPE_MEAL_TYPES_INPUT_PLACEHOLDER, NEW_RECIPE_TAGS_BTN,
+    NEW_RECIPE_TAGS_INPUT_PLACEHOLDER,
+    NEW_RECIPE_TAGS_LABEL
+} from "../../../constants.js";
 
 function RecipeCategorizationSection({recipe, handleOnChange}) {
     return (
         <div>
             <div className="form-field">
-                <label>Tags</label>
+                <label>{NEW_RECIPE_TAGS_LABEL}</label>
                 <TextField
                     fullWidth
-                    placeholder="Enter tag"
+                    placeholder={NEW_RECIPE_TAGS_INPUT_PLACEHOLDER}
                     value={recipe.tags}
                     name="tags"
                     onChange={handleOnChange}
                 />
                 <button className="add-button">
-                    + Add Tag
+                    {NEW_RECIPE_TAGS_BTN}
                 </button>
             </div>
 
             <div className="form-field">
-                <label>Meal Type</label>
+                <label>{NEW_RECIPE_MEAL_TYPE_LABEL}</label>
                 <TextField
                     fullWidth
-                    placeholder="e.g., Breakfast, Lunch, Dinner"
+                    placeholder={NEW_RECIPE_MEAL_TYPES_INPUT_PLACEHOLDER}
                     value={recipe.mealType}
                     name="mealType"
                     onChange={handleOnChange}
                 />
                 <button className="add-button">
-                    + Add Meal Type
+                    {NEW_RECIPE_MEAL_TYPE_BTN}
                 </button>
             </div>
         </div>

@@ -1,10 +1,15 @@
-import {IMAGE_PLACEHOLDER} from "../../constants";
+import {
+    ADD_TO_FAVORITES,
+    COOKING_TIME_FIELD_LABEL,
+    DIFFICULTY_FIELD_LABEL,
+    IMAGE_PLACEHOLDER, SESSION_STORE_FAVORITES
+} from "../../constants";
 import {useSessionStorage} from "../../hook/useSessionStorage.js";
 import "./index.css";
 
 function RecipeCard({recipe}) {
 
-    const [storedRecipes, setStoredRecipes] = useSessionStorage("favorites", []);
+    const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
     const recipeId = recipe.id;
     const title = recipe.name || 'Untitled';
     const difficulty = recipe.difficulty || 'Unknown';
@@ -24,11 +29,11 @@ function RecipeCard({recipe}) {
         <div className="recipe-card">
             <img src={image} alt="Recipe Image"/>
             <button onClick={() => handleAddRecipe(recipe)}>
-                Add to Recipe Book
+                {ADD_TO_FAVORITES}
             </button>
             <h3>{title}</h3>
-            <p> Difficulty: {difficulty}</p>
-            <p> Cooking Time: {cookingTime}</p>
+            <p> {DIFFICULTY_FIELD_LABEL} {difficulty}</p>
+            <p> {COOKING_TIME_FIELD_LABEL} {cookingTime}</p>
         </div>
     );
 }

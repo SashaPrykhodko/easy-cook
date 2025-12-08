@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import "./index.css";
-import {IMAGE_PLACEHOLDER} from "../../constants.js";
+import {ADD_GROCERY_LIST_BTN, IMAGE_PLACEHOLDER} from "../../constants.js";
 import {useState} from "react";
 import GroceryListModal from "./GroceryListModal.jsx";
 
@@ -71,8 +71,7 @@ function RecipeTaskCard({recipe}) {
                                 onClose={handleClose}
                                 onPointerDown={(e) => e.stopPropagation()}
                             >
-                                <MenuItem onClick={handleGroceryListOpen}>Add grocery list</MenuItem>
-                                <MenuItem onClick={handleGroceryListOpen}>Add comment</MenuItem>
+                                <MenuItem onClick={handleGroceryListOpen}>{ADD_GROCERY_LIST_BTN}</MenuItem>
                             </Menu>
                         </>}
                         title={title}
