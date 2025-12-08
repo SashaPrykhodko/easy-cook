@@ -5,7 +5,7 @@ import {
     NEW_RECIPE_COOK_TIME_INPUT_PLACEHOLDER, NEW_RECIPE_COOK_TIME_LABEL,
     NEW_RECIPE_PREP_TIME_INPUT_PLACEHOLDER,
     NEW_RECIPE_PREP_TIME_LABEL, NEW_RECIPE_SERVING_INPUT_PLACEHOLDER, NEW_RECIPE_SERVING_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
 
 function RecipeDetailsSection({recipe, handleOnChange}) {
     return (

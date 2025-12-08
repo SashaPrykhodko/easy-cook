@@ -1,8 +1,8 @@
 import Column from "./Column"
 import "./index.css";
 import {DndContext} from "@dnd-kit/core";
-import {useSessionStorage} from "../../hook/useSessionStorage.js";
-import {COLUMNS, SESSION_STORE_FAVORITES} from "../../constants.js";
+import {useSessionStorage} from "../../hook/useSessionStorage.ts";
+import {COLUMNS, SESSION_STORE_FAVORITES} from "../../constants.ts";
 
 function RecipeBoard() {
     const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);

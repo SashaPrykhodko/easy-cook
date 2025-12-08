@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from 'react'
-import {useRecipes} from '../../hook/useRecipes.js'
+import {useRecipes} from '../../hook/useRecipes.ts'
 import {Link} from "react-router-dom";
 
 import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
@@ -13,7 +13,7 @@ import {
     NO_RECIPES_RESULT,
     RECIPES_LOADING_DIV,
     UNKNOWN_ERROR
-} from "../../constants.js";
+} from "../../constants.ts";
 
 
 function RecipeListPage() {

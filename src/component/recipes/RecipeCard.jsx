@@ -3,8 +3,8 @@ import {
     COOKING_TIME_FIELD_LABEL,
     DIFFICULTY_FIELD_LABEL,
     IMAGE_PLACEHOLDER, SESSION_STORE_FAVORITES
-} from "../../constants";
-import {useSessionStorage} from "../../hook/useSessionStorage.js";
+} from "../../constants.ts";
+import {useSessionStorage} from "../../hook/useSessionStorage.ts";
 import "./index.css";
 
 function RecipeCard({recipe}) {

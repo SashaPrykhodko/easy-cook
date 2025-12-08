@@ -3,7 +3,7 @@ import {
     NEW_RECIPE_INGREDIENTS_INPUT_PLACEHOLDER,
     NEW_RECIPE_INGREDIENTS_LABEL, NEW_RECIPE_INSTRUCTIONS_INPUT_PLACEHOLDER,
     NEW_RECIPE_INSTRUCTIONS_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
 
 function RecipeContentSection({ recipe, handleOnChange, addItem }) {
     return (

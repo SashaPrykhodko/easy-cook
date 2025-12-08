@@ -1,7 +1,7 @@
 import {useState} from "react";
 import AddRecipeModal from "./form/AddRecipeModal.jsx";
 import "./index.css";
-import {CUISINE_OPTIONS, DIFFICULTY_OPTIONS, MEAL_TYPE_OPTIONS, SEARCH_RECIPES_PLACEHOLDER} from "../../constants.js";
+import {CUISINE_OPTIONS, DIFFICULTY_OPTIONS, MEAL_TYPE_OPTIONS, SEARCH_RECIPES_PLACEHOLDER} from "../../constants.ts";
 
 function RecipeFilterBar({search, onSearchChange, filter, onFilterChange}) {
     const [isAddRecipe, setIsAddRecipe] = useState(false);

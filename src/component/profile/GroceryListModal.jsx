@@ -1,13 +1,13 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextField, IconButton} from "@mui/material";
 import {forwardRef, useState} from "react";
-import {useSessionStorage} from "../../hook/useSessionStorage.js";
+import {useSessionStorage} from "../../hook/useSessionStorage.ts";
 import CloseIcon from '@mui/icons-material/Close';
 import {
     GROCERY_LIST_ADD_ITEM_BTN,
     GROCERY_LIST_CANCEL_BTN, GROCERY_LIST_DIALOG_TITLE, GROCERY_LIST_INPUT_PLACEHOLDER,
     GROCERY_LIST_SAVE_BTN,
     SESSION_STORE_FAVORITES
-} from "../../constants.js";
+} from "../../constants.ts";
 
 function GroceryListModal({isOpen, onClose, recipe}) {
     const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);

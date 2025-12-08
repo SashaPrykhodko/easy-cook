@@ -5,9 +5,9 @@ import RecipeBasicInfoSection from "./RecipeBasicInfoSection.jsx";
 import RecipeDetailsSection from "./RecipeDetailsSection.jsx";
 import RecipeContentSection from "./RecipeContentSection.jsx";
 import RecipeCategorizationSection from "./RecipeCategorizationSection.jsx";
-import {useAddRecipe} from "../../../hook/useRecipes.js";
+import {useAddRecipe} from "../../../hook/useRecipes.ts";
 import "./index.css";
-import {ADD_NEW_RECIPE_BTN, CANCEL_RECIPE_BTN, SAVE_RECIPE_BTN} from "../../../constants.js";
+import {ADD_NEW_RECIPE_BTN, CANCEL_RECIPE_BTN, SAVE_RECIPE_BTN} from "../../../constants.ts";
 
 const initialState = {
     name: '',

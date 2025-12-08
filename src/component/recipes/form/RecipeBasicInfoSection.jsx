@@ -4,7 +4,7 @@ import {
     NEW_RECIPE_IMG_LABEL,
     NEW_RECIPE_NAME_INPUT_PLACEHOLDER,
     NEW_RECIPE_NAME_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
 
 function RecipeBasicInfoSection({recipe, handleOnChange}) {
     return (

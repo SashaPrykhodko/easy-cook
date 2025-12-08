@@ -4,7 +4,7 @@ import {
     NEW_RECIPE_MEAL_TYPE_LABEL, NEW_RECIPE_MEAL_TYPES_INPUT_PLACEHOLDER, NEW_RECIPE_TAGS_BTN,
     NEW_RECIPE_TAGS_INPUT_PLACEHOLDER,
     NEW_RECIPE_TAGS_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
 
 function RecipeCategorizationSection({recipe, handleOnChange}) {
     return (

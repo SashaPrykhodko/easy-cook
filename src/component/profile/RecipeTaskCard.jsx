@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 import "./index.css";
-import {ADD_GROCERY_LIST_BTN, IMAGE_PLACEHOLDER} from "../../constants.js";
+import {ADD_GROCERY_LIST_BTN, IMAGE_PLACEHOLDER} from "../../constants.ts";
 import {useState} from "react";
 import GroceryListModal from "./GroceryListModal.jsx";
 
