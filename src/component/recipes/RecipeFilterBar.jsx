@@ -1,9 +1,9 @@
 import {useState} from "react";
 import AddRecipeModal from "./form/AddRecipeModal.jsx";
+import "./index.css";
 
-function RecipeFilterBar({search, onSearchChange, filter, onFilterChange, onAddRecipe}) {
+function RecipeFilterBar({search, onSearchChange, filter, onFilterChange}) {
     const [isAddRecipe, setIsAddRecipe] = useState(false);
-    // const [anchorEl, setAnchorEl] = useState(null);
 
     const handleSelectChange = (e) => {
         const {name, value} = e.target;

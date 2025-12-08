@@ -1,12 +1,12 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import "../index.css";
 import {useEffect, useState} from "react";
 import RecipeBasicInfoSection from "./RecipeBasicInfoSection.jsx";
 import RecipeDetailsSection from "./RecipeDetailsSection.jsx";
 import RecipeContentSection from "./RecipeContentSection.jsx";
 import RecipeCategorizationSection from "./RecipeCategorizationSection.jsx";
 import {useAddRecipe} from "../../../hook/useRecipes.js";
+import "./index.css";
 
 const initialState = {
     name: '',

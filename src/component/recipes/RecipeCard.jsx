@@ -1,5 +1,6 @@
 import {IMAGE_PLACEHOLDER} from "../../constants";
 import {useSessionStorage} from "../../hook/useSessionStorage.js";
+import "./index.css";
 
 function RecipeCard({recipe}) {
 

@@ -1,0 +1,93 @@
+.add-recipe-dialog .MuiDialog-paper {
+    max-width: 800px;
+    border-radius: 12px;
+}
+
+.close-button {
+    position: absolute !important;
+    right: 12px;
+    top: 12px;
+    color: #666 !important;
+}
+
+.add-recipe-dialog .MuiDialogTitle-root {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 24px 24px 16px;
+}
+
+.add-recipe-dialog .MuiDialogContent-root {
+    padding: 0 24px 24px;
+}
+
+.form-field {
+    margin-bottom: 24px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-field .MuiTextField-root {
+    width: 100%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.add-button {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.add-button:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.instruction-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.step-number {
+    font-weight: 500;
+    color: #666;
+    min-width: 24px;
+}
+
+.dialog-actions {
+    padding: 16px 24px !important;
+    gap: 12px;
+}
+
+.dialog-actions .MuiButton-outlined {
+    color: #666;
+    border-color: #ddd;
+}
+
+.dialog-actions .MuiButton-contained {
+    background-color: #2563eb;
+}
+
+.dialog-actions .MuiButton-contained:hover {
+    background-color: #1d4ed8;
+}

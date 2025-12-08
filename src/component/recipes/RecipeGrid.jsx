@@ -1,8 +1,7 @@
 import RecipeCard from "./RecipeCard";
+import "./index.css";
 
 function RecipeGrid({ recipes }) {
-  // console.log('Rendering RecipeGrid with recipes:', recipes);
-
   return (
     <div className="recipe-grid">
       {recipes.map((r) => (
