@@ -10,23 +10,25 @@ import MenuItem from '@mui/material/MenuItem';
 import "./index.css";
 import {ADD_GROCERY_LIST_BTN, IMAGE_PLACEHOLDER} from "../../constants.ts";
 import {useState} from "react";
-import GroceryListModal from "./GroceryListModal.jsx";
+import GroceryListModal from "./GroceryListModal.tsx";
+import type {Recipe} from "../../types/recipe.ts";
+import * as React from "react";
 
-function RecipeTaskCard({recipe}) {
-    const {attributes, listeners, setNodeRef, transform, transition}
+function RecipeTaskCard({recipe}: {recipe: Recipe}) {
+    const {attributes, listeners, setNodeRef, transform}
         = useDraggable({id: recipe.id});
 
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [isGroceryModalOpen, setIsGroceryModalOpen] = useState(false);
     const open = Boolean(anchorEl);
 
     const title = recipe.name || 'Untitled';
     const image = recipe.image || IMAGE_PLACEHOLDER;
     const style = {
-        transition, transform: CSS.Translate.toString(transform),
+        transform: CSS.Translate.toString(transform),
     };
 
-    const handleActionClick = (event) => {
+    const handleActionClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 

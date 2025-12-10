@@ -1,16 +1,25 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Slide, TextField, IconButton} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Slide, TextField} from "@mui/material";
 import {forwardRef, useState} from "react";
 import {useSessionStorage} from "../../hook/useSessionStorage.ts";
 import CloseIcon from '@mui/icons-material/Close';
 import {
     GROCERY_LIST_ADD_ITEM_BTN,
-    GROCERY_LIST_CANCEL_BTN, GROCERY_LIST_DIALOG_TITLE, GROCERY_LIST_INPUT_PLACEHOLDER,
+    GROCERY_LIST_CANCEL_BTN,
+    GROCERY_LIST_DIALOG_TITLE,
+    GROCERY_LIST_INPUT_PLACEHOLDER,
     GROCERY_LIST_SAVE_BTN,
     SESSION_STORE_FAVORITES
 } from "../../constants.ts";
+import type {Product, Recipe} from "../../types/recipe.ts";
 
-function GroceryListModal({isOpen, onClose, recipe}) {
-    const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
+type GroceryListModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+    recipe: Recipe;
+}
+
+function GroceryListModal({isOpen, onClose, recipe}: GroceryListModalProps) {
+    const [, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
     const [products, setProducts] = useState([
         {id: generateUniqueId(), name: ''}
     ]);
@@ -21,7 +30,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
         setProducts([...validProducts, newProduct]);
     };
 
-    const handleProductChange = (id, newName) => {
+    const handleProductChange = (id: string, newName: string) => {
         setProducts(prevState =>
             prevState.map(product =>
                 product.id === id ? {...product, name: newName} : product));
@@ -35,8 +44,8 @@ function GroceryListModal({isOpen, onClose, recipe}) {
         onClose();
     }
 
-    function saveRecipeProducts(recipeId, products) {
-        setStoredRecipes(currentRecipes => currentRecipes.map(r => (
+    function saveRecipeProducts(recipeId: number, products: Product[]) {
+        setStoredRecipes((currentRecipes:Recipe[]) => currentRecipes.map(r => (
             r.id === recipeId
                 ? {...r, products}
                 : r
@@ -58,7 +67,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
             <IconButton
                 className="close-button"
                 onClick={onClose}>
-                <CloseIcon />
+                <CloseIcon/>
             </IconButton>
 
             <DialogTitle>{GROCERY_LIST_DIALOG_TITLE}</DialogTitle>
@@ -98,7 +107,7 @@ function GroceryListModal({isOpen, onClose, recipe}) {
     );
 }
 
-const Transition = forwardRef(function Transition(props, ref) {
+const Transition = forwardRef<unknown, { children: React.ReactElement }>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props}/>;
 });
 

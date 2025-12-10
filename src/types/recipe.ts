@@ -1,4 +1,4 @@
-export interface Recipe {
+export type Recipe = {
     id: number;
     name: string;
     caloriesPerServing: number;
@@ -15,9 +15,23 @@ export interface Recipe {
     servings: number;
     tags: string[];
     userId: number;
+    status?: string;
+    products?: Product[];
 }
 
-export interface RecipeInput {
+export type Product = {
+    id: string;
+    name: string;
+}
+
+export type RecipeResponse = {
+    limit: number;
+    recipes: Recipe[];
+    skip: number;
+    total: number;
+}
+
+export type RecipeInput = {
     name: string;
     calories: number;
     cookTime: number;
@@ -31,3 +45,14 @@ export interface RecipeInput {
     tags: string[];
     mealType: string[];
 }
+
+export type ColumnType = {
+    id: string;
+    title: string;
+}
+
+export type FilterType = {
+    cuisine: string;
+    mealType: string;
+    difficulty: string;
+};

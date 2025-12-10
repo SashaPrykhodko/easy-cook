@@ -2,14 +2,16 @@ import {
     ADD_TO_FAVORITES,
     COOKING_TIME_FIELD_LABEL,
     DIFFICULTY_FIELD_LABEL,
-    IMAGE_PLACEHOLDER, SESSION_STORE_FAVORITES
+    IMAGE_PLACEHOLDER,
+    SESSION_STORE_FAVORITES
 } from "../../constants.ts";
 import {useSessionStorage} from "../../hook/useSessionStorage.ts";
 import "./index.css";
+import type {Recipe} from "../../types/recipe.ts";
 
-function RecipeCard({recipe}) {
+function RecipeCard({recipe}: { recipe: Recipe }) {
 
-    const [storedRecipes, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
+    const [, setStoredRecipes] = useSessionStorage(SESSION_STORE_FAVORITES, []);
     const recipeId = recipe.id;
     const title = recipe.name || 'Untitled';
     const difficulty = recipe.difficulty || 'Unknown';
@@ -17,10 +19,10 @@ function RecipeCard({recipe}) {
     const cookingTime = (recipe.cookTimeMinutes && recipe.prepTimeMinutes)
         ? `${recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins` : 'N/A';
 
-    const handleAddRecipe = (recipe) => {
-        setStoredRecipes(currentRecipes => {
+    const handleAddRecipe = (recipe: Recipe) => {
+        setStoredRecipes((currentRecipes) => {
             if (currentRecipes.some(r => r.id === recipeId)) return currentRecipes;
-            const newRecipe = {...recipe, status: 'NOT COOKED YET'};
+            const newRecipe: Recipe = {...recipe, status: 'NOT COOKED YET'};
             return [...currentRecipes, newRecipe];
         });
     }

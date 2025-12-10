@@ -1,4 +1,4 @@
-import RecipeBoard from "../profile/RecipeBoard";
+import RecipeBoard from "../profile/RecipeBoard.tsx";
 
 function ProfilePage() {
 
