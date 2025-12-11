@@ -2,9 +2,15 @@ import {useDroppable} from "@dnd-kit/core";
 import Grid from '@mui/material/Grid';
 
 import "./index.css";
-import RecipeTaskCard from "./RecipeTaskCard";
+import type {ColumnType, Recipe} from "../../types/recipe.ts";
+import RecipeTaskCard from "./RecipeTaskCard.tsx";
 
-function Column({column, recipes}) {
+type ColumnProps = {
+    column: ColumnType;
+    recipes: Recipe[];
+}
+
+function Column({column, recipes}: ColumnProps) {
     const {setNodeRef} = useDroppable({id: column.id});
     return (
         <div className="column">

@@ -1,9 +1,9 @@
 import {useEffect, useMemo, useState} from 'react'
-import {useRecipes} from '../../hook/useRecipes.js'
+import {useRecipes} from '../../hook/useRecipes.ts'
 import {Link} from "react-router-dom";
 
-import RecipeFilterBar from '../recipes/RecipeFilterBar.jsx'
-import RecipeGrid from '../recipes/RecipeGrid.jsx';
+import RecipeFilterBar from '../recipes/RecipeFilterBar.tsx'
+import RecipeGrid from '../recipes/RecipeGrid.tsx';
 
 import './index.css';
 import {
@@ -13,14 +13,21 @@ import {
     NO_RECIPES_RESULT,
     RECIPES_LOADING_DIV,
     UNKNOWN_ERROR
-} from "../../constants.js";
+} from "../../constants.ts";
+import type {FilterType, Recipe} from "../../types/recipe.ts";
+import * as React from "react";
 
+type FilterConfig = {
+    field: string,
+    recipeField: keyof Recipe,
+    fieldValue: string,
+    isArray: boolean
+};
 
 function RecipeListPage() {
     const {recipes, isLoading, isError, error} = useRecipes();
     const [search, setSearch] = useState('');
     const [filter, setFilter] = useState(FILTERS_INIT_STATE);
-    const [addRecipe, setAddRecipe] = useState(false);
 
     useEffect(() => {
         if (isError) {
@@ -28,22 +35,18 @@ function RecipeListPage() {
         }
     }, [isError, error]);
 
-    const filteredRecipes = useMemo(() =>
+    const filteredRecipes: Recipe[] = useMemo(() =>
             filterRecipes(recipes, search, filter),
         [search, recipes, filter]
     );
 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
-    const handleFilterChange = (newFilter) => {
+    const handleFilterChange = (newFilter: FilterType) => {
         setFilter(newFilter);
     };
-
-    const handleAddRecipe = () => {
-        setAddRecipe(!addRecipe);
-    }
 
     if (isLoading) return <div>{RECIPES_LOADING_DIV}</div>;
     if (isError) return <div>{LOADING_ERROR}{error?.message ?? UNKNOWN_ERROR}</div>;
@@ -53,8 +56,7 @@ function RecipeListPage() {
             <RecipeFilterBar search={search}
                              onSearchChange={handleSearchChange}
                              filter={filter}
-                             onFilterChange={handleFilterChange}
-                             onAddRecipe={handleAddRecipe}/>
+                             onFilterChange={handleFilterChange}/>
 
             <Link to="/profile">{LINK_TO_RECIPES}</Link>
 
@@ -67,7 +69,7 @@ function RecipeListPage() {
     );
 }
 
-function filterRecipes(recipes, searchTerm, filter) {
+function filterRecipes(recipes: Recipe[], searchTerm: string, filter: FilterType) {
     const searchCriteria = searchTerm.trim().toLowerCase();
     if (!searchCriteria && (filter.cuisine === 'all' && filter.mealType === 'all' && filter.difficulty === 'all'))
         return recipes;
@@ -77,10 +79,10 @@ function filterRecipes(recipes, searchTerm, filter) {
         recipes = textFilter(recipes, searchCriteria);
     }
 
-    const filterConfigs = [
-        {field: 'cuisine', recipeField: 'cuisine', value: filter.cuisine, isArray: false},
-        {field: 'mealType', recipeField: 'mealType', value: filter.mealType, isArray: true},
-        {field: 'difficulty', recipeField: 'difficulty', value: filter.difficulty, isArray: false},
+    const filterConfigs: FilterConfig[] = [
+        {field: 'cuisine', recipeField: 'cuisine', fieldValue: filter.cuisine, isArray: false},
+        {field: 'mealType', recipeField: 'mealType', fieldValue: filter.mealType, isArray: true},
+        {field: 'difficulty', recipeField: 'difficulty', fieldValue: filter.difficulty, isArray: false},
     ];
     if (filter.cuisine !== 'all' || filter.mealType !== 'all' || filter.difficulty !== 'all') {
         recipes = selectFilter(recipes, filterConfigs);
@@ -89,28 +91,28 @@ function filterRecipes(recipes, searchTerm, filter) {
     return recipes;
 }
 
-function textFilter(recipes, searchCriteria) {
+function textFilter(recipes: Recipe[], searchCriteria: string): Recipe[] {
     return recipes.filter(recipe => {
         const title = (recipe.name).toLowerCase();
         return title.includes(searchCriteria);
     });
 }
 
-function selectFilter(recipes, filterConfig) {
+function selectFilter(recipes: Recipe[], filterConfig: FilterConfig[]): Recipe[] {
     return recipes.filter(recipe => {
-        return filterConfig.every(config => {
-            const {recipeField, value, isArray} = config;
+        return filterConfig.every((config: FilterConfig) => {
+            const {recipeField, fieldValue, isArray} = config;
 
-            if (value === 'all') return true;
+            if (fieldValue === 'all') return true;
 
-            const recipeValue = recipe[recipeField];
-            const normalizedValue = value.toLowerCase();
+            const recipeValue = String(recipe[recipeField as keyof Recipe]);
+            const normalizedFieldValue = fieldValue.toLowerCase();
 
             if (isArray && Array.isArray(recipeValue)) {
-                return recipeValue.some(v => v.toLowerCase() === normalizedValue);
+                return recipeValue.some(v => v.toString().toLowerCase() === normalizedFieldValue);
             }
 
-            return (recipeValue || '').toLowerCase() === normalizedValue;
+            return String(recipeValue || '').toLowerCase() === normalizedFieldValue;
         })
     })
 }

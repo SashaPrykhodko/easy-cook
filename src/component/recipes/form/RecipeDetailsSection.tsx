@@ -2,12 +2,28 @@ import {TextField} from "@mui/material";
 import {
     NEW_RECIPE_CALORIES_INPUT_PLACEHOLDER,
     NEW_RECIPE_CALORIES_LABEL,
-    NEW_RECIPE_COOK_TIME_INPUT_PLACEHOLDER, NEW_RECIPE_COOK_TIME_LABEL,
+    NEW_RECIPE_COOK_TIME_INPUT_PLACEHOLDER,
+    NEW_RECIPE_COOK_TIME_LABEL,
     NEW_RECIPE_PREP_TIME_INPUT_PLACEHOLDER,
-    NEW_RECIPE_PREP_TIME_LABEL, NEW_RECIPE_SERVING_INPUT_PLACEHOLDER, NEW_RECIPE_SERVING_LABEL
-} from "../../../constants.js";
+    NEW_RECIPE_PREP_TIME_LABEL,
+    NEW_RECIPE_SERVING_INPUT_PLACEHOLDER,
+    NEW_RECIPE_SERVING_LABEL
+} from "../../../constants.ts";
+import * as React from "react";
 
-function RecipeDetailsSection({recipe, handleOnChange}) {
+type RecipeDetailsSectionProps = {
+    recipe: {
+        prepTime: number;
+        cookTime: number;
+        servings: number;
+        calories: number;
+        difficulty: string;
+        cuisine: string;
+    },
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function RecipeDetailsSection({recipe, handleOnChange}: RecipeDetailsSectionProps) {
     return (
         <div>
             <div className="form-row">

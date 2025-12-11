@@ -1,7 +1,8 @@
 import {useCallback, useState} from "react";
+import type {Recipe} from "../types/recipe.ts";
 
-export function useSessionStorage(key, initialValue) {
-    const [stored, setStored] = useState(() => {
+export function useSessionStorage(key: string, initialValue: Recipe[]): [Recipe[], (value: Recipe[] | ((prev: Recipe[]) => Recipe[])) => void] {
+    const [stored, setStored] = useState<Recipe[]>(() => {
         try {
             const item = sessionStorage.getItem(key);
             if (item === null || item === "undefined") {
@@ -14,7 +15,7 @@ export function useSessionStorage(key, initialValue) {
         }
     });
 
-    const setValue = useCallback((value) => {
+    const setValue = useCallback((value: Recipe[] | ((prev: Recipe[]) => Recipe[])) => {
         const currentValue = (() => {
             try {
                 const item = sessionStorage.getItem(key);
@@ -33,6 +34,6 @@ export function useSessionStorage(key, initialValue) {
         setStored(valueToStore);
     }, [key, initialValue]);
 
-    return [stored, setValue]
+    return [stored, setValue];
 }
 

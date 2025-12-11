@@ -4,9 +4,18 @@ import {
     NEW_RECIPE_IMG_LABEL,
     NEW_RECIPE_NAME_INPUT_PLACEHOLDER,
     NEW_RECIPE_NAME_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
+import * as React from "react";
 
-function RecipeBasicInfoSection({recipe, handleOnChange}) {
+type RecipeBasicInfoSectionProps = {
+    recipe: {
+        name: string,
+        image: string,
+    }
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function RecipeBasicInfoSection({recipe, handleOnChange}: RecipeBasicInfoSectionProps) {
     return (
         <div>
             <div className="form-field">

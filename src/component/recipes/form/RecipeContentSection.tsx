@@ -3,9 +3,18 @@ import {
     NEW_RECIPE_INGREDIENTS_INPUT_PLACEHOLDER,
     NEW_RECIPE_INGREDIENTS_LABEL, NEW_RECIPE_INSTRUCTIONS_INPUT_PLACEHOLDER,
     NEW_RECIPE_INSTRUCTIONS_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
+import * as React from "react";
 
-function RecipeContentSection({ recipe, handleOnChange, addItem }) {
+type RecipeContentSectionState = {
+    recipe: {
+        ingredients: string[];
+        instructions: string[];
+    },
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function RecipeContentSection({ recipe, handleOnChange}: RecipeContentSectionState) {
     return (
         <div>
             <div className="form-field">

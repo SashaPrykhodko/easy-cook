@@ -1,4 +1,6 @@
 // API URLs
+import type {ColumnType, FilterType} from "./types/recipe.ts";
+
 export const API_BASE_URL = 'https://dummyjson.com/recipes/';
 export const IMAGE_PLACEHOLDER = '/no-image-available.jpg';
 
@@ -20,7 +22,7 @@ export const MEAL_TYPE_OPTIONS = [
     {value: 'all', label: 'All'},
     {value: 'breakfast', label: 'Breakfast'},
     {value: 'lunch', label: 'Lunch'},
-    {value: 'lunch', label: 'Lunch'},
+    {value: 'dinner', label: 'Dinner'},
 ];
 
 export const DIFFICULTY_OPTIONS = [
@@ -73,7 +75,7 @@ export const NEW_RECIPE_CALORIES_INPUT_PLACEHOLDER = '0';
 //Profile
 export const ADD_GROCERY_LIST_BTN = 'Add grocery list';
 
-export const COLUMNS = [
+export const COLUMNS: ColumnType[] = [
     {id: "NOT COOKED YET", title: "Not Cooked Yet"},
     {id: "READY TO BE COOKED", title: "Ready To Be Cooked"},
     {id: "REVIEW", title: "Review"}
@@ -92,7 +94,7 @@ export const NO_RECIPES_RESULT = 'No recipes found.';
 export const RECIPES_LOADING_DIV = 'Loading recipes…';
 export const LOADING_ERROR = 'Error: ';
 export const UNKNOWN_ERROR = 'Unknown error';
-export const FILTERS_INIT_STATE = {
+export const FILTERS_INIT_STATE: FilterType = {
     cuisine: 'all',
     mealType: 'all',
     difficulty: 'all',

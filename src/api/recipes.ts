@@ -1,6 +1,7 @@
-import {API_BASE_URL} from '../constants';
+import {API_BASE_URL} from '../constants.ts';
+import type {Recipe, RecipeInput, RecipeResponse} from "../types/recipe.ts";
 
-export async function fetchRecipes() {
+export async function fetchRecipes(): Promise<RecipeResponse> {
     console.log('Fetching recipes from API');
     const res = await fetch(`${API_BASE_URL}`);
     if (!res.ok) {
@@ -9,11 +10,11 @@ export async function fetchRecipes() {
     return res.json();
 }
 
-export const submitRecipe = async (recipe) => {
+export const submitRecipe = async (newRecipe: RecipeInput): Promise<Recipe> => {
     const response = await fetch(`${API_BASE_URL}/add`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(recipe),
+        body: JSON.stringify(newRecipe),
     });
 
     if (!response.ok) {

@@ -4,9 +4,18 @@ import {
     NEW_RECIPE_MEAL_TYPE_LABEL, NEW_RECIPE_MEAL_TYPES_INPUT_PLACEHOLDER, NEW_RECIPE_TAGS_BTN,
     NEW_RECIPE_TAGS_INPUT_PLACEHOLDER,
     NEW_RECIPE_TAGS_LABEL
-} from "../../../constants.js";
+} from "../../../constants.ts";
+import * as React from "react";
 
-function RecipeCategorizationSection({recipe, handleOnChange}) {
+type RecipeCategorizationSectionProps = {
+    recipe: {
+        tags: string[],
+        mealType: string[],
+    },
+    handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function RecipeCategorizationSection({recipe, handleOnChange}: RecipeCategorizationSectionProps) {
     return (
         <div>
             <div className="form-field">
