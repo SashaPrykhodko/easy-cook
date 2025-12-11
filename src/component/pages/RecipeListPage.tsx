@@ -19,8 +19,8 @@ import * as React from "react";
 
 type FilterConfig = {
     field: string,
-    recipeField: string,
-    value: string,
+    recipeField: keyof Recipe,
+    fieldValue: string,
     isArray: boolean
 };
 
@@ -80,9 +80,9 @@ function filterRecipes(recipes: Recipe[], searchTerm: string, filter: FilterType
     }
 
     const filterConfigs: FilterConfig[] = [
-        {field: 'cuisine', recipeField: 'cuisine', value: filter.cuisine, isArray: false},
-        {field: 'mealType', recipeField: 'mealType', value: filter.mealType, isArray: true},
-        {field: 'difficulty', recipeField: 'difficulty', value: filter.difficulty, isArray: false},
+        {field: 'cuisine', recipeField: 'cuisine', fieldValue: filter.cuisine, isArray: false},
+        {field: 'mealType', recipeField: 'mealType', fieldValue: filter.mealType, isArray: true},
+        {field: 'difficulty', recipeField: 'difficulty', fieldValue: filter.difficulty, isArray: false},
     ];
     if (filter.cuisine !== 'all' || filter.mealType !== 'all' || filter.difficulty !== 'all') {
         recipes = selectFilter(recipes, filterConfigs);
@@ -101,18 +101,18 @@ function textFilter(recipes: Recipe[], searchCriteria: string): Recipe[] {
 function selectFilter(recipes: Recipe[], filterConfig: FilterConfig[]): Recipe[] {
     return recipes.filter(recipe => {
         return filterConfig.every((config: FilterConfig) => {
-            const {recipeField, value, isArray} = config;
+            const {recipeField, fieldValue, isArray} = config;
 
-            if (value === 'all') return true;
+            if (fieldValue === 'all') return true;
 
-            const recipeValue = recipe[recipeField];
-            const normalizedValue = value.toLowerCase();
+            const recipeValue = String(recipe[recipeField as keyof Recipe]);
+            const normalizedFieldValue = fieldValue.toLowerCase();
 
             if (isArray && Array.isArray(recipeValue)) {
-                return recipeValue.some(v => v.toLowerCase() === normalizedValue);
+                return recipeValue.some(v => v.toString().toLowerCase() === normalizedFieldValue);
             }
 
-            return String(recipeValue || '').toLowerCase() === normalizedValue;
+            return String(recipeValue || '').toLowerCase() === normalizedFieldValue;
         })
     })
 }
